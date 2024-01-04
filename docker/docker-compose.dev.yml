@@ -1,0 +1,22 @@
+name: homies
+
+services:
+  backend:
+    build: ../backend
+    ports:
+      - 3000:3000
+    command: [ "npm","run", "start:dev" ]
+    volumes:
+      - type: bind
+        source: ../backend/src
+        target: /app/src
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    ports:
+      - 5432:5432
